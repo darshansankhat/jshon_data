@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:jshon_data/Product_json_data/Provider_class/Product_provider.dart';
 import 'package:jshon_data/user_Json_data/provider_Class/user_Json_Provider.dart';
 import 'package:provider/provider.dart';
 
+import '../Users_json_data/Provider_class/Users_provider.dart';
 import '../post_Json_Data/provider_screen/json_Provider.dart';
 
 class Json_home extends StatefulWidget {
@@ -18,6 +20,12 @@ class _Json_homeState extends State<Json_home> {
   User_provider? UproviderF;
   User_provider? UproviderT;
 
+  Product_provider? PproviderF;
+  Product_provider? PproviderT;
+
+  Users_provider? uproviderF;
+  Users_provider? uproviderT;
+
   @override
   Widget build(BuildContext context) {
     providerF = Provider.of<Json_provider>(context, listen: false);
@@ -25,6 +33,12 @@ class _Json_homeState extends State<Json_home> {
 
     UproviderF = Provider.of<User_provider>(context, listen: false);
     UproviderT = Provider.of<User_provider>(context, listen: true);
+
+    PproviderF = Provider.of<Product_provider>(context, listen: false);
+    PproviderT = Provider.of<Product_provider>(context, listen: true);
+
+    uproviderF = Provider.of<Users_provider>(context, listen: false);
+    uproviderT = Provider.of<Users_provider>(context, listen: true);
 
     return SafeArea(
       child: Scaffold(
@@ -54,7 +68,7 @@ class _Json_homeState extends State<Json_home> {
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
                   onPressed: () {
@@ -62,13 +76,27 @@ class _Json_homeState extends State<Json_home> {
                     Navigator.pushNamed(context, "post");
                   },
                   child: Text("Post Data")),
-              SizedBox(height: 50),
+
               ElevatedButton(
                   onPressed: () {
                     UproviderF!.userJsonParsing();
                     Navigator.pushNamed(context, "user");
                   },
                   child: Text("User Data")),
+
+              ElevatedButton(
+                  onPressed: () {
+                    PproviderF!.productJsonParsing();
+                    Navigator.pushNamed(context, "product");
+                  },
+                  child: Text("Product Data")),
+
+              ElevatedButton(
+                  onPressed: () {
+                    uproviderF!.UsersDataParsing();
+                    Navigator.pushNamed(context, "Users");
+                  },
+                  child: Text("Users Data")),
             ],
           ),
         ),
